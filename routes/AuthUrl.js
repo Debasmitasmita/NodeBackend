@@ -21,7 +21,7 @@ router.post('/logout', authenticationMiddleware.checkSessionMiddleware, (req, re
   res.status(200).send('Logged out successfully');
 });
 router.get("/session", authenticationMiddleware.checkSessionMiddleware, authenticationController.grantPermission);
-router.get('/refresh', authenticationMiddleware.checkSessionMiddleware, authenticationMiddleware.checkAccessTokenMiddleWare, authenticationController.newAccessToken);
+router.post('/refresh', authenticationMiddleware.checkSessionMiddleware, authenticationController.newAccessToken);
 
 router.post('/passWordResetVerification', customMiddleware, userController.passWordResetVerification);
 router.post('/emailVerifyUser', customMiddleware, userController.emailVerifyUser);
@@ -29,5 +29,5 @@ router.post('/updateUserEmail', customMiddleware, userController.updateUserEmail
 router.post('/updateUserBasicData', customMiddleware, userController.updateUserBasicData);
 router.post('/roleAccess/AssignRoleToUser', customMiddleware, userController.AssignRoleToUser);
 
-router.get('/getUsers',authenticationMiddleware.checkSessionMiddleware,authenticationController.getuser)
+router.get('/getUsers',authenticationMiddleware.checkAccessTokenMiddleWare,authenticationController.getuser)
 module.exports = router;
